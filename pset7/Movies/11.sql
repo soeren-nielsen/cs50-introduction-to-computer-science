@@ -1,0 +1,10 @@
+-- Write a SQL query to list the titles of the five highest rated movies (in order) that Chadwick Boseman starred in, starting with the highest rated
+
+SELECT title -- First I use SELECT to select from which column I want my output, in this case I want title from the table movies
+FROM people JOIN stars ON stars.person_id = people.id JOIN movies ON movies.id = stars.movie_id JOIN ratings ON ratings.movie_id = stars.movie_id -- Use FROM people to select which table you want to use, however the people table does not contain information about which movies the different actors stared in. I then solve this by using JOIN to join the people table with the stars table. Then I use ON stars.person_id = people.id where I ask that the colum person_id in the table stars should be equal to the colum people.id in the table people. Now we have access to person_id and movie_id, however we still need to access the title of the movies. The title of the movies are stored in the table movies. We then have to use JOIN again in almost the same way as before. Now that the tables are joined I can access the title, however we still ned the ratings in order to ensure that we only get the 5 highest rated movies Chadwick Boseman starred in. We then again use JOIN in order to access the ratings in the table ratings.
+WHERE name ="Chadwick Boseman" -- I then use WHERE name = "Chadwick Boseman" because I only want the titles of the movie he starred in
+ORDER BY rating DESC -- Then I use ORDER BY rating DESC because we want the movies in descending order by rating (descending = from highest numerical value to lowest)
+LIMIT 5; -- I then end the query with LIMIT 5 which is because we are only interested in the 5 highest rated movies Chadwick Boseman starred in and of course I end the SQL statement with ;
+
+-- Result 5 rows
+-- Runtime 8500-10550ms

@@ -1,0 +1,10 @@
+-- Write a SQL query to list the names of all people who starred in a movie released in 2004, ordered by birth year
+
+SELECT name -- Use SELECT to select from which colum you want your output, in this case we want name from the table people
+FROM people JOIN stars ON stars.person_id = people.id JOIN movies ON movies.id = stars.movie_id -- Use FROM people to select which table you want to use, however the people table does not contain information about which movies the different actors starred in. I then solve this by using JOIN to join the people table with the stars table. Then I use ON stars.person_id = people.id where I ask that the colum person_id in the table stars should be equal to the colum people.id in the table people. Now I have access to person_id and movie_id, however we still need to access the title of the movie. The title of the movie is stored in the table movies. We then have to use JOIN again in almost the same way as before. Now that the tables are joined I can access the title field, which I need in the next step.
+WHERE year = 2004 -- Use WHERE year = 2004 because we only want the names of people who stared in a movie released in 2004
+GROUP BY name, person_id -- Use GROUP BY name and person_id to ensure that if a person appeared in more than one movie released in 2004 they will only appear once. The reason I am using GROUP BY name, person_id is to aggregate names which have the same person_id, in order to ensure that this persons name only appear in the results once.
+ORDER BY birth, name ASC; -- Use ORDER BY birth because we want names of the people ordered by birth year. If two people have the same birth year and we wanted to order them alphabetically we could write ORDER BY birth, name ASC to ensure that (and add birth to SELECT to see the birth year column)
+
+-- Result 18013 rows
+-- Runtime 6550-6700ms
